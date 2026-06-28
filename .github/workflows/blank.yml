@@ -19,3 +19,26 @@ jobs:
           git add .
           git commit -m "解压 bioquest (6).zip"
           git push
+name: Move bioquest to root
+on:
+  workflow_dispatch:
+jobs:
+  move:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Move contents to root
+        run: |
+          shopt -s dotglob
+          mv bioquest_files/bioquest/* ./
+          rm -rf bioquest_files
+          ls -la
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "将 bioquest 内容提升为根目录"
+          git push
