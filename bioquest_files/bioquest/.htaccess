@@ -1,0 +1,55 @@
+# ============================================================
+# BioQuest — .htaccess 安全配置
+# 上传到站点根目录 bioquest.dada.im/
+# ============================================================
+# 如果服务器使用 Apache，此文件生效
+# 如果使用 Nginx，需要手动配置 Nginx 规则
+# 如果使用彩虹云自带 WAF，参考下方 WAF 正则
+# ============================================================
+
+# 禁止目录列表
+Options -Indexes
+
+# 默认首页
+DirectoryIndex index.html
+
+# ============================================================
+# 禁止访问敏感文件类型
+# ============================================================
+<FilesMatch "\.(py|pyc|sql|env|md|yml|yaml|log|gitignore|editorconfig|DS_Store)$">
+    Require all denied
+</FilesMatch>
+
+# 禁止访问隐藏文件（.env, .git 等）
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# 禁止访问敏感目录
+RewriteEngine On
+RewriteRule ^backend/ - [F,L]
+RewriteRule ^__pycache__/ - [F,L]
+RewriteRule ^sql/ - [F,L]
+RewriteRule ^quiz_data/ - [F,L]
+RewriteRule ^\.git/ - [F,L]
+RewriteRule ^\.vscode/ - [F,L]
+RewriteRule \.py$ - [F,L]
+RewriteRule \.sql$ - [F,L]
+RewriteRule \.env$ - [F,L]
+RewriteRule \.yml$ - [F,L]
+RewriteRule \.yaml$ - [F,L]
+RewriteRule \.md$ - [F,L]
+
+# ============================================================
+# 安全 Header
+# ============================================================
+<IfModule mod_headers.c>
+    # 防止 MIME 嗅探
+    Header set X-Content-Type-Options "nosniff"
+    # 防止点击劫持
+    Header set X-Frame-Options "SAMEORIGIN"
+    # 启用 XSS 过滤器
+    Header set X-XSS-Protection "1; mode=block"
+    # 禁止引用来源泄露
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

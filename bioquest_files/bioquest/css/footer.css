@@ -1,0 +1,50 @@
+/* ============================================
+ * 页脚样式
+ * ============================================ */
+.footer {
+  background: var(--forest-deep);
+  padding: 44px 0;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-brand {
+  font-family: var(--font-serif, 'Noto Serif SC', serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--marigold);
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    padding: 0 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+}

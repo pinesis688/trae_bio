@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content="#1a2f1d">
+  <meta name="color-scheme" content="light dark">
+
+  <!-- Primary SEO -->
+  <title>BioQuest — 生物竞赛刷题平台 | 全真模拟 · 专项练习 · 错题本</title>
+  <meta name="description" content="BioQuest 是面向生物竞赛备考的智能学习平台。基于2025联赛新大纲，提供72题全真模拟考试、模块化专项练习、能力雷达图诊断、智能错题本管理和交互式知识图谱。支持手机端和电脑端。">
+  <meta name="keywords" content="生物竞赛,生物联赛,生物奥赛,刷题平台,生物题库,全真模拟,能力诊断,错题本,BioQuest">
+  <meta name="author" content="BioQuest">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://bioquest.app/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BioQuest">
+  <meta property="og:title" content="BioQuest — 生物竞赛智能刷题平台">
+  <meta property="og:description" content="全真模拟考试、模块化专项练习、能力雷达图诊断、智能错题本。基于2025联赛新大纲，助你高效备考生物竞赛。">
+  <meta property="og:url" content="https://bioquest.app/">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:image" content="https://bioquest.app/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="BioQuest 生物竞赛学习平台">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BioQuest — 生物竞赛智能刷题平台">
+  <meta name="twitter:description" content="全真模拟 · 专项练习 · 错题本 · 雷达诊断。基于2025联赛新大纲。">
+  <meta name="twitter:image" content="https://bioquest.app/og-image.png">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "BioQuest",
+    "description": "基于2025联赛新大纲的生物竞赛智能学习平台，提供全真模拟考试、模块化专项练习、能力雷达图诊断和智能错题本管理。",
+    "url": "https://bioquest.app/",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+    "inLanguage": "zh-CN",
+    "author": { "@type": "Organization", "name": "BioQuest" }
+  }
+  </script>
+
+  <!-- CDN 预连接：仅保留实际使用的 CDN -->
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <!-- 字体：本地霞鹜文楷 v1.522，零网络请求，即时渲染 -->
+  <style>
+    @font-face {
+      font-family: 'LXGW WenKai';
+      src: url('/fonts/lxgw-wenkai.ttf?v=1.522') format('truetype');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- KaTeX：首屏不依赖，异步加载 -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"></noscript>
+
+  <!-- 外部 CDN 失败回退状态与工具函数 -->
+  <script>
+    window.__supabaseLoaded = false;
+    window.__loadSupabaseFallback = function(script) {
+      if (window.__supabaseLoaded || typeof window.supabase !== 'undefined') return;
+      var s = document.createElement('script');
+      s.src = 'https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+      s.defer = true;
+      s.onerror = function() {
+        console.warn('[BioQuest] Supabase SDK 镜像加载失败，将使用本地存储模式');
+        document.documentElement.classList.add('supabase-fallback');
+        if (typeof window.showStorageStatus === 'function') window.showStorageStatus('local');
+      };
+      document.head.appendChild(s);
+    };
+  </script>
+
+  <!-- 首屏关键 CSS：同步加载 -->
+  <link rel="stylesheet" href="css/globals.css?v=20260627a">
+  <link rel="stylesheet" href="css/layout.css?v=20260627a">
+  <link rel="stylesheet" href="css/header.css?v=20260627a">
+  <link rel="stylesheet" href="css/home.css?v=20260627a">
+  <!-- 非首屏关键 CSS：异步加载，不阻塞首次渲染 -->
+  <link rel="preload" href="css/countdown.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/countdown.css"></noscript>
+  <!-- debug-fix.css 非首屏关键，异步加载 -->
+  <link rel="preload" href="css/debug-fix.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/debug-fix.css"></noscript>
+
+  <!-- 非首屏 CSS：异步加载，不阻塞首次渲染 -->
+  <link rel="preload" href="css/practice.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/practice.css"></noscript>
+  <link rel="preload" href="css/footer.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/footer.css"></noscript>
+  <link rel="preload" href="css/analytics.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/analytics.css"></noscript>
+  <link rel="preload" href="css/user.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/user.css"></noscript>
+  <link rel="preload" href="css/cards.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/cards.css"></noscript>
+  <link rel="preload" href="css/announcements.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/announcements.css"></noscript>
+  <link rel="preload" href="css/habits.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/habits.css"></noscript>
+</head>
+<body>
+  <a href="#page-content" class="skip-link">跳到主要内容</a>
+
+  <header class="header">
+    <a href="#/" class="header-brand">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <circle cx="14" cy="14" r="12" stroke="#e8a830" stroke-width="2"/>
+        <circle cx="14" cy="14" r="4" fill="#e8a830"/>
+        <path d="M14 2v4M14 22v4M2 14h4M22 14h4" stroke="#5a7d5c" stroke-width="1.5"/>
+      </svg>
+      <span class="logo-text">BioQuest</span>
+    </a>
+
+    <nav class="header-nav" id="desktopNav">
+      <a href="#/" data-route="/">首页</a>
+      <a href="#/dashboard" data-route="/dashboard">仪表盘</a>
+      <a href="#/trends" data-route="/trends">趋势</a>
+      <a href="#/tutor" data-route="/tutor" style="color:var(--color-amber,#c4956a);font-weight:600;">AI 对话</a>
+      <a href="#/practice" data-route="/practice">练习</a>
+      <a href="#/exam" data-route="/exam">模考</a>
+      <a href="biology-history.html">生物学史</a>
+      <a href="cards.html">卡片</a>
+      <a href="quiz.html">试题</a>
+      <a href="#/knowledge-graph" data-route="/knowledge-graph">图谱</a>
+      <a href="#/bio-lab" data-route="/bio-lab">实验室</a>
+      <a href="#/study" data-route="/study">学习</a>
+      <a href="#/wrongbook" data-route="/wrongbook">错题录题</a>
+      <a href="#/community" data-route="/community">社区</a>
+      <a href="#/teacher" data-route="/teacher">教师</a>
+      <a href="#/user" data-route="/user">我的</a>
+    </nav>
+
+    <div class="header-right">
+      <button class="auth-btn" id="auth-btn" title="登录/注册">登录</button>
+
+      <button class="hamburger" id="hamburgerBtn" aria-label="菜单" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+  <nav class="mobile-nav" id="mobileNav">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border-light);">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <circle cx="14" cy="14" r="12" stroke="#e8a830" stroke-width="2"/>
+          <circle cx="14" cy="14" r="4" fill="#e8a830"/>
+          <path d="M14 2v4M14 22v4M2 14h4M22 14h4" stroke="#5a7d5c" stroke-width="1.5"/>
+        </svg>
+        <span style="font-weight:700;font-size:1.1rem;color:var(--color-deep);">BioQuest</span>
+      </div>
+      <button id="mobileNavClose" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-muted);padding:4px 8px;">✕</button>
+    </div>
+    <div class="mobile-nav-scroll">
+      <a href="#/" data-route="/">首页</a>
+      <a href="#/dashboard" data-route="/dashboard" class="nav-highlight">仪表盘</a>
+      <a href="#/trends" data-route="/trends" class="nav-highlight">趋势</a>
+      <a href="#/tutor" data-route="/tutor" class="nav-highlight" style="color:var(--color-amber,#c4956a);font-weight:600;">AI 对话</a>
+      <a href="#/practice" data-route="/practice" class="nav-highlight">练习</a>
+      <a href="#/exam" data-route="/exam" class="nav-highlight">模考</a>
+      <a href="biology-history.html">生物学史</a>
+      <a href="cards.html">卡片</a>
+      <a href="quiz.html">试题</a>
+      <a href="#/knowledge-graph" data-route="/knowledge-graph">图谱</a>
+      <a href="#/bio-lab" data-route="/bio-lab">实验室</a>
+      <a href="#/study" data-route="/study">学习</a>
+      <a href="#/wrongbook" data-route="/wrongbook">错题录题</a>
+      <a href="#/community" data-route="/community">社区</a>
+      <a href="#/teacher" data-route="/teacher">教师</a>
+      <a href="javascript:void(0)" id="nav-leaderboard-btn">排行</a>
+      <a href="#/user" data-route="/user">我的</a>
+      <div class="theme-toggle-row">
+        <span>主题模式</span>
+        <button class="theme-toggle theme-toggle--mobile" id="themeToggleMobile" aria-label="切换主题">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+  </nav>
+
+  <main id="app-main">
+    <div id="page-content" class="page-content">
+      <section class="hero" id="main-content" data-section="hero">
+        <div class="hero-bg" id="heroCanvas"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-gradient-left"></div>
+        <div class="hero-content">
+          <div class="hero-label">CHINA BIOLOGY OLYMPIAD 2026</div>
+          <h1 class="hero-title">探索生命的奥秘<br><span class="hero-title-accent">从这里开始</span></h1>
+          <p class="hero-subtitle">BioQuest 为每一位热爱生物学的你，提供从高考到竞赛的全链路学习工具</p>
+          <div class="hero-actions">
+            <button class="btn-primary-hero" data-route="/exam">
+              <span>开始模考</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <button class="btn-outline-hero" data-route="/practice">
+              专项练习
+            </button>
+          </div>
+        </div>
+        <div class="hero-scroll-hint">
+          <span>向下滚动</span>
+          <div class="scroll-line"></div>
+        </div>
+      </section>
+
+      <div class="countdown-banner" data-section="countdown">
+        <div class="countdown-inner">
+          <div class="countdown-head">
+            <div class="countdown-label">全国中学生生物学联赛</div>
+            <div class="countdown-date">2026年8月16日</div>
+          </div>
+          <div class="countdown-digits">
+            <div class="countdown-unit">
+              <div class="countdown-num" id="cd-days">--</div>
+              <div class="countdown-unit-label">天</div>
+            </div>
+            <svg class="countdown-sep" width="4" height="4" viewBox="0 0 4 4"><circle cx="2" cy="2" r="2" fill="currentColor"/></svg>
+            <div class="countdown-unit">
+              <div class="countdown-num" id="cd-hours">--</div>
+              <div class="countdown-unit-label">时</div>
+            </div>
+            <svg class="countdown-sep" width="4" height="4" viewBox="0 0 4 4"><circle cx="2" cy="2" r="2" fill="currentColor"/></svg>
+            <div class="countdown-unit">
+              <div class="countdown-num" id="cd-mins">--</div>
+              <div class="countdown-unit-label">分</div>
+            </div>
+            <svg class="countdown-sep" width="4" height="4" viewBox="0 0 4 4"><circle cx="2" cy="2" r="2" fill="currentColor"/></svg>
+            <div class="countdown-unit">
+              <div class="countdown-num" id="cd-secs">--</div>
+              <div class="countdown-unit-label">秒</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="announcement-banner" id="announcementBanner" data-section="announcements" style="display:none;">
+        <div class="container">
+          <div class="announcement-inner">
+            <div class="announcement-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </div>
+            <div class="announcement-marquee" id="announcementMarquee">
+              <div class="announcement-text" id="announcementText">加载公告中...</div>
+            </div>
+            <div class="announcement-nav" id="announcementNav" style="display:none;">
+              <button class="announcement-nav-btn" id="announcementPrev" aria-label="上一条">&lt;</button>
+              <span class="announcement-counter" id="announcementCounter">1/1</span>
+              <button class="announcement-nav-btn" id="announcementNext" aria-label="下一条">&gt;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="stats-strip" data-section="stats">
+        <div class="container">
+          <div class="stats-row">
+            <div class="stat-item">
+              <div class="stat-value">10,000<span class="stat-unit">+</span></div>
+              <div class="stat-label">题库总量</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-value">4<span class="stat-unit">大模块</span></div>
+              <div class="stat-label">学科分类</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-value">72<span class="stat-unit">题</span></div>
+              <div class="stat-label">全真模拟</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-value">150<span class="stat-unit">分钟</span></div>
+              <div class="stat-label">限时挑战</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="daily-question-section" data-section="daily-question">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-label">DAILY CHALLENGE</div>
+            <h2 class="section-title">每日一题</h2>
+            <p class="section-desc">每天一道精选竞赛题，保持手感，积少成多</p>
+          </div>
+          <div class="daily-question-card" id="dailyQuestionCard">
+            <div class="daily-question-loading" id="dailyLoading">加载中...</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="social-impact-section" data-section="social-impact" style="padding:80px 0;background:linear-gradient(180deg,var(--surface-primary) 0%,rgba(90,125,92,0.04) 100%);">
+        <div class="container">
+          <div class="section-header" style="margin-bottom:40px;">
+            <div class="section-label">SOCIAL IMPACT</div>
+            <h2 class="section-title">生物守护计划</h2>
+            <p class="section-desc">用生物知识服务社会公益：关注生物多样性保护、生态可持续与乡村教育公平</p>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:stretch;">
+            <div style="flex:1;min-width:300px;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-light);background:var(--surface-primary);box-shadow:var(--shadow-sm);">
+              <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Young%20volunteers%20teaching%20rural%20Chinese%20students%20to%20observe%20plant%20specimens%20through%20a%20microscope%20in%20a%20bright%20classroom%2C%20educational%20equality%20theme%2C%20warm%20natural%20lighting%2C%20realistic%20photography%20style%2C%20soft%20green%20tones&image_size=landscape_16_9" alt="生物公益教育" style="width:100%;height:220px;object-fit:cover;display:block;">
+              <div style="padding:24px;">
+                <h3 style="font-size:1.15rem;font-weight:600;margin-bottom:10px;color:var(--color-deep);">乡村生物科普志愿行</h3>
+                <p style="font-size:0.92rem;color:var(--text-secondary);line-height:1.7;margin-bottom:16px;">BioQuest 将竞赛级生物知识拆解为适合中学生的科普内容，助力志愿者走进乡村学校，让每个孩子都能触摸生命的奥秘。</p>
+                <button class="btn-secondary-cta" onclick="window.location.href='index.html#/practice?concept=%E7%94%9F%E7%89%A9%E5%A4%9A%E6%A0%B7%E6%80%A7%E4%BF%9D%E6%8A%A4'" style="display:inline-flex;align-items:center;gap:6px;">
+                  进入公益专题练习
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+            <div style="flex:1;min-width:300px;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-light);background:var(--surface-primary);box-shadow:var(--shadow-sm);padding:24px;display:flex;flex-direction:column;justify-content:center;">
+              <h3 style="font-size:1.15rem;font-weight:600;margin-bottom:18px;color:var(--color-deep);">我们能一起做的事</h3>
+              <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;">
+                <li style="display:flex;align-items:flex-start;gap:12px;font-size:0.94rem;color:var(--text-secondary);line-height:1.6;">
+                  <span style="width:28px;height:28px;border-radius:50%;background:rgba(90,125,92,0.1);color:var(--color-sage);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.85rem;">1</span>
+                  <span><strong>生物多样性保护</strong>：通过题库传播濒危物种、栖息地保护等知识，提升公众生态意识。</span>
+                </li>
+                <li style="display:flex;align-items:flex-start;gap:12px;font-size:0.94rem;color:var(--text-secondary);line-height:1.6;">
+                  <span style="width:28px;height:28px;border-radius:50%;background:rgba(90,125,92,0.1);color:var(--color-sage);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.85rem;">2</span>
+                  <span><strong>教育公平</strong>：所有核心题库永久免费，让偏远地区学生也能获得高质量生物竞赛资源。</span>
+                </li>
+                <li style="display:flex;align-items:flex-start;gap:12px;font-size:0.94rem;color:var(--text-secondary);line-height:1.6;">
+                  <span style="width:28px;height:28px;border-radius:50%;background:rgba(90,125,92,0.1);color:var(--color-sage);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.85rem;">3</span>
+                  <span><strong>科学辟谣</strong>：用严谨的生物学知识回应公众关切，抵制伪科学与健康谣言。</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section" data-section="cta">
+        <div class="container">
+          <div class="cta-block">
+            <h2 class="cta-title">准备好征服生物竞赛了吗？</h2>
+            <p class="cta-subtitle">无论是系统复习还是考前冲刺，BioQuest 为你提供最科学的学习路径</p>
+            <div class="cta-actions">
+              <button class="btn-primary-hero btn-primary-hero--lg" data-route="/exam">
+                <span>开始模考</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <button class="btn-secondary-cta" data-route="/practice">专项练习</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">BioQuest — 生物竞赛学习平台</div>
+      <div class="footer-links">
+        <a href="#/">首页</a>
+        <a href="#/practice">练习</a>
+        <a href="#/exam">模拟考试</a>
+        <a href="#/cards">知识卡片</a>
+        <a href="#/study">学习</a>
+        <a href="#/bio-animation">生物动画</a>
+        <a href="ebook.html">电子书</a>
+        <a href="#/knowledge-graph">知识图谱</a>
+        <a href="#/diagnosis">智能诊断</a>
+        <a href="#/community">社区</a>
+        <a href="#/analytics">学习分析</a>
+        <a href="#/leaderboard">排行榜</a>
+        <a href="#/user">用户中心</a>
+        <a href="resources.html">学习资源</a>
+        <a href="javascript:void(0)" onclick="window.showFeedbackModal()" style="color:rgba(255,255,255,0.5);font-size:0.8rem;transition:color 0.15s">反馈</a>
+        <span style="color:rgba(255,255,255,0.25);font-size:0.75rem">CNBO · 2026</span>
+        <a href="javascript:void(0)" onclick="window.openDonation()" style="color:rgba(255,255,255,0.5);font-size:0.8rem;transition:color 0.15s">支持我们</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 移动端底部标签栏 -->
+  <nav class="bottom-tab-bar" id="bottomTabBar">
+    <a href="#/" class="bottom-tab" data-tab="home">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>首页</span>
+    </a>
+    <a href="#/practice" class="bottom-tab" data-tab="practice">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      <span>练习</span>
+    </a>
+    <a href="#/exam" class="bottom-tab" data-tab="exam">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      <span>考试</span>
+    </a>
+    <a href="#/dashboard" class="bottom-tab" data-tab="dashboard">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      <span>仪表盘</span>
+    </a>
+    <a href="#/user" class="bottom-tab" data-tab="user">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>我的</span>
+    </a>
+  </nav>
+
+  <!-- p5.js 仅用于首页动画，延迟加载；带 fallback 防止 CDN 失败 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js" defer onerror="window.__p5Failed=true"></script>
+  <!-- Supabase JS SDK：首屏不需要，延迟到空闲时加载 -->
+  <script>
+    // 延迟加载 Supabase SDK，不阻塞 DOMContentLoaded
+    function __loadSupabaseSDK() {
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+      s.defer = true;
+      s.onload = function() { window.__supabaseLoaded = true; };
+      s.onerror = function() { window.__loadSupabaseFallback(this); };
+      document.head.appendChild(s);
+    }
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(__loadSupabaseSDK, { timeout: 3000 });
+    } else {
+      setTimeout(__loadSupabaseSDK, 1000);
+    }
+  </script>
+  <!-- Supabase 相关脚本：首屏不需要，由 app.js 在 initSupabase 中按需动态加载 -->
+  <!-- supabase-client.js / supabase.js / storage.js 已从 HTML 移除，节省 ~140KB 首屏加载 -->
+
+  <script src="js/utils.js?v=20260627a" defer></script>
+  <!-- question-utils.js / loader.js 已从 HTML 移除，由 practice/exam 模块按需加载 -->
+  <!-- 降级导航：仅在 app.js 尚未加载时兜底处理 data-route 点击 -->
+  <script>
+    (function() {
+      document.addEventListener('click', function(e) {
+        // app.js 加载后会暴露 navigateTo，此时由 app.js 统一处理
+        if (typeof window.navigateTo === 'function') return;
+        var link = e.target.closest('[data-route]');
+        if (link) {
+          var route = link.getAttribute('data-route');
+          if (route && route.startsWith('/')) {
+            e.preventDefault();
+            window.location.hash = route;
+          }
+        }
+      });
+    })();
+  </script>
+  <!-- 全局调试脚本（已禁用）
+  <script>
+    console.log('%c BioQuest 调试模式 ', 'background: #1a3a2a; color: #e8a830; font-weight: bold; padding: 4px 12px; border-radius: 4px;');
+
+    // 全局点击监控器 - 查看点击是否被捕获
+    document.addEventListener('click', function (e) {
+      console.log('点击事件:', {
+        target: e.target,
+        targetTag: e.target.tagName,
+        targetClasses: e.target.className,
+        targetId: e.target.id,
+        targetText: e.target.textContent?.slice(0, 50) || '',
+        dataRoute: e.target.getAttribute('data-route'),
+        clientX: e.clientX,
+        clientY: e.clientY,
+        path: e.composedPath ? e.composedPath().slice(0, 5) : 'N/A'
+      });
+    }, true); // 使用捕获阶段
+
+    // 防止任何事件被阻止的测试
+    document.addEventListener('mousedown', function (e) {
+      console.log('鼠标按下:', e.target);
+    }, true);
+
+    // 测试按钮 - 在页面最上层添加一个简单的按钮来验证点击
+    var debugBtn = document.createElement('button');
+    debugBtn.id = 'debug-test-button';
+    debugBtn.textContent = '调试测试按钮 - 点击我';
+    debugBtn.style.cssText = 'position:fixed;top:100px;right:20px;z-index:99999;background:var(--color-amber);color:var(--color-deep);padding:12px 24px;border:none;border-radius:8px;font-size:16px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,0.3);';
+    debugBtn.onclick = function () {
+      alert('调试按钮点击成功！点击事件工作正常！');
+      console.log('调试按钮点击成功！');
+    };
+    document.body.appendChild(debugBtn);
+
+    console.log('调试脚本已加载，测试按钮已添加');
+  </script> -->
+
+  <!-- 核心模块直接加载，避免动态 import 兼容性问题 -->
+  <!-- ai-client.js 先加载（纯前端 AI 调用，供 tutor/discussion 复用） -->
+  <script src="js/ai-client.js?v=20260628i" defer></script>
+  <!-- 主 App 先加载，因为其他模块依赖它的全局变量 -->
+  <script src="js/app.js?v=20260628i" defer></script>
+  <!-- 首页关键模块：首屏动画立即加载；非关键模块由 app.js 延迟加载 -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof window.loadModule === 'function') {
+      window.loadModule('hero-sketch');
+    }
+  });
+  </script>
+</body>
+</html>
