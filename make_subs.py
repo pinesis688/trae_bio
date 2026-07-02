@@ -1,32 +1,29 @@
 """
-BioQuest 抖音宣传片 — 字幕配置 + ffmpeg 合成
+BioQuest 抖音宣传片 v4 — 字幕配置
+对应精简后的 9 镜头脚本，删除代码/开源相关镜头
 """
-import os, subprocess, json
+import os
 
-# 镜头时长（按脚本分镜表）
+# 镜头时长（按 v4 脚本分镜表，共 55s）
 SHOTS = [
-    # (id, start, duration, subtitle_text_or_None, narration_text)
-    (1,  0.0, 4.0, "这个暑假，我写了一个网站。", None),
-    (2,  4.0, 2.0, None, None),  # 代码滚动，纯画面
-    (3,  6.0, 3.0, "生物学习平台 · BioQuest", "我是准高三，暑假闲着没事"),
-    (4,  9.0, 5.0, None, "写了个生物学习平台——BioQuest"),
-    (5, 14.0, 4.0, "拍照录题", "错题还要手抄？"),
-    (6, 18.0, 4.0, "AI 导师", "问 AI 比问老师快"),
-    (7, 22.0, 4.0, "知识图谱", "点一个概念，所有关联全连出来"),
-    (8, 26.0, 5.0, "它会告诉你你哪里菜", "相当于请了个一对一老师"),
-    (9, 31.0, 4.0, "错题分析", "错在哪 / 为什么错 / 关联哪个知识点"),
-    (10,35.0, 5.0, "番茄钟 + 待办清单", "每次专注完自动记录"),
-    (11,40.0, 4.0, "FSRS · OCR 双引擎 · 6 家大模型", "API Key 存你自己浏览器里"),
-    (12,44.0, 3.0, "代码完全开源 · CC 协议", "我自己就是学生，知道学生没什么钱"),
-    (13,47.0, 3.0, "虚拟实验室 & 生物动画  开发中", "开学前尽量肝出来"),
-    (14,50.0, 4.0, "bio.dada.im", "账号 user / 密码 123456"),
-    (15,54.0, 3.0, "开学前，让你同桌也看看", None),
+    # (id, start, duration, subtitle_text)
+    (1,  0.0, 3.0, "这个网站，是给高中生用的生物学习神器。"),
+    (2,  3.0, 6.0, "BioQuest"),
+    (3,  9.0, 2.0, "拍照录题"),
+    (4, 11.0, 2.0, "AI 导师"),
+    (5, 13.0, 2.0, "知识图谱"),
+    (6, 15.0, 8.0, "错题分析 · 相当于请了个一对一老师"),
+    (7, 23.0, 7.0, "学习仪表盘 · 精确告诉你哪里菜"),
+    (8, 30.0, 7.0, "番茄钟 + 待办清单 + 课程表"),
+    (9, 37.0, 7.0, "虚拟实验室 & 生物动画  开发中"),
+    (10,44.0, 6.0, "bio.dada.im  ·  账号 user / 密码 123456"),
+    (11,50.0, 5.0, "开学前，让你同桌也看看"),
 ]
 
-# 生成 ASS 字幕（比 SRT 更可控，支持字体/描边/位置）
+
 def make_ass():
     head = """[Script Info]
-Title: BioQuest Promo
+Title: BioQuest Promo v4
 ScriptType: v4.00+
 PlayResX: 1080
 PlayResY: 1920
@@ -42,38 +39,29 @@ Style: Tag,WenQuanYi Micro Hei,84,&H00FFE600,&H000000FF,&H00000000,&H80000000,1,
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
     events = []
-    for shot_id, start, dur, subtitle, narration in SHOTS:
-        if subtitle is None:
-            continue
+    for shot_id, start, dur, subtitle in SHOTS:
         end = start + dur
-        # 转 ASS 时间格式 H:MM:SS.cs
         def fmt(t):
             h = int(t // 3600)
             m = int((t % 3600) // 60)
             s = t % 60
             cs = int((s - int(s)) * 100)
             return f"{h}:{m:02d}:{int(s):02d}.{cs:02d}"
-        # 不同镜头用不同 style
-        if shot_id in (1, 14, 15):
+        if shot_id in (1, 10, 11):
             style = "Big"
-        elif shot_id in (3, 5, 6, 7, 8, 9, 10, 12, 13):
-            style = "Default"
-        else:
+        elif shot_id in (2, 9):
             style = "Tag"
+        else:
+            style = "Default"
         text = subtitle.replace("&", "&amp;").replace("\n", "\\N")
         events.append(f"Dialogue: 0,{fmt(start)},{fmt(end)},{style},,0,0,0,,{text}")
 
     return head + "\n".join(events) + "\n"
 
 
-def main():
+if __name__ == "__main__":
     ass_path = "/workspace/video_assets/subs/story.ass"
     with open(ass_path, "w", encoding="utf-8") as f:
         f.write(make_ass())
     print(f"字幕文件: {ass_path}")
-    # 检查
-    os.system(f"head -20 {ass_path}")
-
-
-if __name__ == "__main__":
-    main()
+    os.system(f"head -25 {ass_path}")
