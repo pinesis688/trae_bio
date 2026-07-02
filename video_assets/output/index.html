@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BioQuest 抖音宣传片预览</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0a;
+    color: #fff;
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  h1 { margin: 20px 0 10px; font-size: 22px; }
+  .info { color: #888; font-size: 14px; margin-bottom: 20px; text-align: center; }
+  .player-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 405px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  }
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #000;
+  }
+  .gif-section {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 405px;
+  }
+  .gif-section h2 { font-size: 16px; margin-bottom: 10px; color: #ccc; }
+  .gif-section img {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+  }
+  .links { margin-top: 30px; text-align: center; }
+  .links a {
+    color: #FFE600;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 0 10px;
+    padding: 8px 16px;
+    border: 1px solid #FFE600;
+    border-radius: 6px;
+    display: inline-block;
+  }
+  .links a:hover { background: #FFE600; color: #000; }
+</style>
+</head>
+<body>
+  <h1>BioQuest 抖音宣传片 v6</h1>
+  <p class="info">55 秒 · 1080×1920 竖屏 · 带 BGM 和字幕</p>
+
+  <div class="player-wrap">
+    <video controls autoplay loop muted playsinline>
+      <source src="bioquest_promo_v6.mp4" type="video/mp4">
+      你的浏览器不支持 video 标签。
+    </video>
+  </div>
+
+  <div class="gif-section">
+    <h2>GIF 预览（静音 · 低画质）</h2>
+    <img src="bioquest_preview.gif" alt="BioQuest 宣传片 GIF 预览">
+  </div>
+
+  <div class="links">
+    <a href="bioquest_promo_v6.mp4" download>下载 MP4</a>
+    <a href="bioquest_preview.gif" download>下载 GIF</a>
+  </div>
+</body>
+</html>
